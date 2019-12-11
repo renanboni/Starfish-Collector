@@ -5,10 +5,13 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Polygon
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.FloatArray
 
 /**
  * This class should be used in place of ActorBeta
@@ -29,6 +32,9 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
     private var acceleration = 0f
     private var maxSpeed = 1000f
     private var deceleration = 0f
+
+    // For collision
+    private lateinit var boundaryPolygon: Polygon
 
     init {
         setPosition(x, y)
@@ -65,6 +71,49 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
                         rotation
                 )
             }
+        }
+    }
+
+    fun overlaps(other: BaseActor): Boolean {
+        val poly1 = getBoundaryPolygon()
+        val poly2 = other.getBoundaryPolygon()
+
+        if (!poly1.boundingRectangle.overlaps(poly2.boundingRectangle)) {
+            return false
+        }
+
+        return Intersector.overlapConvexPolygons(poly1, poly2)
+    }
+
+    fun setBoundaryRectangle() {
+        val w = width
+        val h = height
+
+        val vertices = floatArrayOf(0f, 0f, w, 0f, w, h, 0f, h)
+        boundaryPolygon = Polygon(vertices)
+    }
+
+    fun setBoundaryPolygon(numSides: Int) {
+        val vertices = floatArrayOf()
+
+        val w = width
+        val h = height
+
+        for (i in 0..numSides) {
+            val angle = i * 6.28f / numSides
+
+            vertices[2 * i] = w / 2 * MathUtils.cos(angle) + w / 2
+            vertices[2 * i + 1] = w / 2 * MathUtils.sin(angle) + h / 2
+        }
+        boundaryPolygon = Polygon(vertices)
+    }
+
+    fun getBoundaryPolygon(): Polygon {
+        return boundaryPolygon.apply {
+            setPosition(x, y)
+            setOrigin(originX, originY)
+            rotation = rotation
+            setScale(scaleX, scaleY)
         }
     }
 
@@ -105,6 +154,10 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
 
         setSize(width, height)
         setOrigin(width * .5f, height * .5f)
+
+        if (boundaryPolygon == null) {
+            setBoundaryRectangle()
+        }
     }
 
     fun setMaxSpeed(ms: Float) {
