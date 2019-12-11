@@ -14,7 +14,7 @@ class StarfishCollector: GameBeta() {
 
         starfish = Starfish(380f, 380f, mainStage)
 
-        turtle = Turtle(20f, 20f, ,mainStage)
+        turtle = Turtle(20f, 20f, mainStage)
     }
 
     override fun update(dt: Float) { }

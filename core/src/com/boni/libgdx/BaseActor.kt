@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.sun.org.apache.xpath.internal.operations.Bool
 
 /**
  * This class should be used in place of ActorBeta
@@ -19,6 +19,9 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
     private var animation: Animation<TextureRegion>? = null
     private var elapsedTime: Float = 0F
     private var animationPaused: Boolean = false
+
+    // Velocity
+    private var velocityVec = Vector2(0f, 0f)
 
     init {
         setPosition(x, y)
@@ -58,9 +61,25 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
         }
     }
 
+    fun setSpeed(speed: Float) {
+        if (velocityVec.len() == 0f) {
+            velocityVec.set(speed, 0f)
+        } else {
+            velocityVec.setLength(speed)
+        }
+    }
+
+    fun getSpeed() = velocityVec.len()
+
+    fun setMotionAngle(angle: Float) = velocityVec.setAngle(angle)
+
+    fun getMotionAngle() = velocityVec.angle()
+
+    fun isMoving() = getSpeed() > 0
+
     fun setAnimation(animation: Animation<TextureRegion>) {
         this.animation = animation
-        val textureRegion = animation.keyFrames[0]
+        val textureRegion = animation.getKeyFrame(0f)
 
         val width = textureRegion.regionWidth.toFloat()
         val height = textureRegion.regionHeight.toFloat()
