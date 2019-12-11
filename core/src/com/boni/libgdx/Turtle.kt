@@ -1,16 +1,18 @@
 package com.boni.libgdx
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input
+import com.badlogic.gdx.scenes.scene2d.Stage
 
-class Turtle: ActorBeta() {
+class Turtle (x: Float, y: Float, stage: Stage): BaseActor(x, y, stage) {
 
-    override fun act(delta: Float) {
-        super.act(delta)
+    init {
+        val filenames = Array<String>(6) {
+            "turtle-1.png"
+            "turtle-2.png"
+            "turtle-3.png"
+            "turtle-4.png"
+            "turtle-5.png"
+            "turtle-6.png"}
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) moveBy(-1f, 0f)
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) moveBy(1f, 0f)
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) moveBy(0f, 1f)
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) moveBy(0f, -1f)
+        loadAnimationFromFiles(filenames, 0.1f, true)
     }
 }

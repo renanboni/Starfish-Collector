@@ -13,7 +13,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool
  * This class should be used in place of ActorBeta
  * It is considered as its improved version
  */
-class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
+open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
 
     // Animations
     private var animation: Animation<TextureRegion>? = null
