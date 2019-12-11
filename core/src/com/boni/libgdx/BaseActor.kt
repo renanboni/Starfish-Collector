@@ -23,6 +23,10 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
     // Velocity
     private var velocityVec = Vector2(0f, 0f)
 
+    // Acceleration
+    private var acceleartionVec = Vector2(0f, 0f)
+    private var acceleration = 0f
+
     init {
         setPosition(x, y)
         stage.addActor(this)
@@ -76,6 +80,18 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
     fun getMotionAngle() = velocityVec.angle()
 
     fun isMoving() = getSpeed() > 0
+
+    fun setAcceleration(ac: Float) {
+        acceleration = ac
+    }
+
+    fun accelerateAtAngle(angle: Float) {
+        acceleartionVec.add(Vector2(acceleration, 0f).setAngle(angle))
+    }
+
+    fun accelerateForward() {
+        accelerateAtAngle(rotation)
+    }
 
     fun setAnimation(animation: Animation<TextureRegion>) {
         this.animation = animation
