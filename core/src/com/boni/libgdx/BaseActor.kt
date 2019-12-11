@@ -26,6 +26,8 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
     // Acceleration
     private var acceleartionVec = Vector2(0f, 0f)
     private var acceleration = 0f
+    private var maxSpeed = 1000f
+    private var deceleration = 0f
 
     init {
         setPosition(x, y)
@@ -104,6 +106,14 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
         setOrigin(width * .5f, height * .5f)
     }
 
+    fun setMaxSpeed(ms: Float) {
+        maxSpeed = ms
+    }
+
+    fun setDeceleration(dec: Float) {
+        deceleration = dec
+    }
+
     fun setAnimationPaused(paused: Boolean) {
         animationPaused = paused
     }
@@ -179,4 +189,6 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
 
         return anim
     }
+
+
 }
