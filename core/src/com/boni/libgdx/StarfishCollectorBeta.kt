@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.Stage
 
-class StarfishCollectorBeta : Game() {
+class StarfishCollectorBeta : GameBeta() {
 
     private lateinit var turtle: Turtle
 
@@ -15,13 +15,7 @@ class StarfishCollectorBeta : Game() {
     private lateinit var ocean: ActorBeta
     private lateinit var winMessage: ActorBeta
 
-    private lateinit var mainStage: Stage
-
-    private var win: Boolean = false
-
-    override fun create() {
-        mainStage = Stage()
-
+    override fun initialize() {
         ocean = ActorBeta().apply { setTexture(Texture(getTextureByFile("water.jpg"))) }
         mainStage.addActor(ocean)
 
@@ -45,18 +39,11 @@ class StarfishCollectorBeta : Game() {
         mainStage.addActor(winMessage)
     }
 
-    override fun render() {
-        mainStage.act(1/60f)
-
+    override fun update(dt: Float) {
         if (turtle.overlaps(starfish)) {
             starfish.remove()
             winMessage.isVisible = true
         }
-
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-
-        mainStage.draw()
     }
 
     private fun getTextureByFile(path: String): FileHandle {
