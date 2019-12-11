@@ -33,7 +33,7 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
     private var deceleration = 0f
 
     // For collision
-    private lateinit var boundaryPolygon: Polygon
+    private var boundaryPolygon: Polygon? = null
 
     init {
         setPosition(x, y)
@@ -105,26 +105,29 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
     }
 
     fun setBoundaryPolygon(numSides: Int) {
-        val vertices = floatArrayOf()
+        val vertices = FloatArray(numSides * 2)
 
         val w = width
         val h = height
 
-        for (i in 0..numSides) {
+        for (i in 0 until numSides) {
             val angle = i * 6.28f / numSides
 
             vertices[2 * i] = w / 2 * MathUtils.cos(angle) + w / 2
-            vertices[2 * i + 1] = w / 2 * MathUtils.sin(angle) + h / 2
+            vertices[2 * i + 1] = h / 2 * MathUtils.sin(angle) + h / 2
         }
         boundaryPolygon = Polygon(vertices)
     }
 
     fun getBoundaryPolygon(): Polygon {
-        return boundaryPolygon.apply {
-            setPosition(x, y)
-            setOrigin(originX, originY)
-            rotation = rotation
-            setScale(scaleX, scaleY)
+        if (boundaryPolygon != null) {
+            boundaryPolygon!!.setPosition(x, y)
+            boundaryPolygon!!.setOrigin(originX, originY)
+            boundaryPolygon!!.rotation = rotation
+            boundaryPolygon!!.setScale(scaleX, scaleY)
+            return boundaryPolygon as Polygon
+        } else {
+            return Polygon()
         }
     }
 
@@ -234,8 +237,8 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
 
         val textureArray = com.badlogic.gdx.utils.Array<TextureRegion>()
 
-        for (r in 0..rows) {
-            for (c in 0..cols) {
+        for (r in 0 until rows) {
+            for (c in 0 until cols) {
                 textureArray.add(temp[r][c])
             }
         }
