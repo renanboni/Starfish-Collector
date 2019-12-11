@@ -73,6 +73,15 @@ class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
         animationPaused = paused
     }
 
+    fun loadTexture(fileName: String): Animation<TextureRegion> {
+        val fileNames = Array(1) { fileName }
+        return loadAnimationFromFiles(fileNames, 1f, true)
+    }
+
+    fun isAnimationFinished(): Boolean {
+        return animation?.isAnimationFinished(elapsedTime) ?: false
+    }
+
     fun loadAnimationFromFiles(fileNames: Array<String>, frameDuration: Float, loop: Boolean): Animation<TextureRegion> {
         val textureArray = com.badlogic.gdx.utils.Array<TextureRegion>()
 
