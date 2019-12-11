@@ -19,6 +19,7 @@ class Turtle(x: Float, y: Float, stage: Stage) : BaseActor(x, y, stage) {
         setDeceleration(400f)
 
         loadAnimationFromFiles(filenames, 0.1f, true)
+        setBoundaryPolygon(8)
     }
 
     override fun act(delta: Float) {
