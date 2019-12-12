@@ -7,6 +7,7 @@ class StarfishCollector: GameBeta() {
     private lateinit var turtle: Turtle
     private lateinit var starfish: Starfish
     private lateinit var ocean: BaseActor
+    private lateinit var rock: Rock
 
     override fun initialize() {
         ocean = BaseActor(0f, 0f, mainStage).apply {
@@ -17,9 +18,13 @@ class StarfishCollector: GameBeta() {
         starfish = Starfish(380f, 380f, mainStage)
 
         turtle = Turtle(20f, 20f, mainStage)
+
+        rock = Rock(200f, 200f, mainStage)
     }
 
     override fun update(dt: Float) {
+        turtle.preventOverlap(rock)
+
         if (turtle.overlaps(starfish) && !starfish.isCollected()) {
             starfish.collect()
 
