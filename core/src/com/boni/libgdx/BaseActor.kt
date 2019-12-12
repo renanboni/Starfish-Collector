@@ -5,12 +5,10 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.math.Intersector
-import com.badlogic.gdx.math.MathUtils
-import com.badlogic.gdx.math.Polygon
-import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.math.*
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
+import org.w3c.dom.css.Rect
 
 /**
  * This class should be used in place of ActorBeta
@@ -301,8 +299,25 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
         accelerationVec.set(0f, 0f)
     }
 
+    fun boundToWorld() {
+        if (x < 0) {
+            x = 0f
+        }
+        if (x + width > worldBounds.width) {
+            x = worldBounds.width - width
+        }
+        if (y < 0) {
+            y = 0f
+        }
+        if (y + height > worldBounds.height) {
+            y = worldBounds.height - height
+        }
+    }
+
     companion object {
-        inline fun <reified T: Any> getList(stage: Stage): List<BaseActor> {
+        lateinit var worldBounds: Rectangle
+
+        inline fun <reified T : Any> getList(stage: Stage): List<BaseActor> {
             val list = arrayListOf<BaseActor>()
 
             stage.actors.forEach {
@@ -314,8 +329,16 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
             return list
         }
 
-        inline fun <reified T: Any> count(stage: Stage): Int {
+        inline fun <reified T : Any> count(stage: Stage): Int {
             return getList<T>(stage).count()
+        }
+
+        fun setWorldBounds(width: Float, height: Float) {
+            worldBounds = Rectangle(0f, 0f, width, height)
+        }
+
+        fun setWorldBounds(baseActor: BaseActor) {
+            setWorldBounds(baseActor.width, baseActor.height)
         }
     }
 }

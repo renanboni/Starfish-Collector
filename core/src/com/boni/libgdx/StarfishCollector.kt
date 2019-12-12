@@ -15,6 +15,8 @@ class StarfishCollector : GameBeta() {
             setSize(800f, 600f)
         }
 
+        BaseActor.setWorldBounds(ocean)
+
         Starfish(400f, 400f, mainStage)
         Starfish(500f, 100f, mainStage)
         Starfish(100f, 450f, mainStage)
