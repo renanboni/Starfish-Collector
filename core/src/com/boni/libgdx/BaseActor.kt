@@ -73,6 +73,25 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
         }
     }
 
+    fun preventOverlap(other: BaseActor): Vector2? {
+        val poly1 = getBoundaryPolygon()
+        val poly2 = other.getBoundaryPolygon()
+
+        if (!poly1.boundingRectangle.overlaps(poly2.boundingRectangle)) {
+            return null
+        }
+
+        val mtv = Intersector.MinimumTranslationVector()
+        val polygonOverlap = Intersector.overlapConvexPolygons(poly1, poly2, mtv)
+
+        if (!polygonOverlap) {
+            return null
+        }
+
+        moveBy(mtv.normal.x * mtv.depth, mtv.normal.y * mtv.depth)
+        return mtv.normal
+    }
+
     fun centerAtPosition(x: Float, y: Float) {
         setPosition(x - width * .5f, y - height * .5f)
     }
