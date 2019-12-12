@@ -299,6 +299,26 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
         accelerationVec.set(0f, 0f)
     }
 
+    fun alignCamera() {
+        val camera = stage.camera
+        val viewport = stage.viewport
+
+        camera.position.set(x + originX, y + originX, 0f)
+        camera.position.x = MathUtils.clamp(
+                camera.position.x,
+                viewport.worldWidth * .5f,
+                worldBounds.width - viewport.worldWidth * .5f
+        )
+        camera.position.y = MathUtils.clamp(
+                camera.position.y,
+                viewport.worldHeight * .5f,
+                worldBounds.height - viewport.worldHeight * .5f
+        )
+
+
+        camera.update()
+    }
+
     fun boundToWorld() {
         if (x < 0) {
             x = 0f

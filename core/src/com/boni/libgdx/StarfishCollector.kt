@@ -11,8 +11,8 @@ class StarfishCollector : GameBeta() {
 
     override fun initialize() {
         ocean = BaseActor(0f, 0f, mainStage).apply {
-            loadTexture("water.jpg")
-            setSize(800f, 600f)
+            loadTexture("water-border.jpg")
+            setSize(1200f, 900f)
         }
 
         BaseActor.setWorldBounds(ocean)

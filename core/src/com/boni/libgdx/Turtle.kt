@@ -39,5 +39,6 @@ class Turtle(x: Float, y: Float, stage: Stage) : BaseActor(x, y, stage) {
         }
 
         boundToWorld()
+        alignCamera()
     }
 }
