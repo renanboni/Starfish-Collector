@@ -8,9 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 abstract class GameBeta: Game() {
 
     protected lateinit var mainStage: Stage
+    protected lateinit var uiStage: Stage
 
     override fun create() {
         mainStage = Stage()
+        uiStage = Stage()
         initialize()
     }
 
@@ -18,6 +20,7 @@ abstract class GameBeta: Game() {
         val dt = Gdx.graphics.deltaTime
 
         mainStage.act(dt)
+        uiStage.act(dt)
 
         update(dt)
 
@@ -25,6 +28,7 @@ abstract class GameBeta: Game() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         mainStage.draw()
+        uiStage.draw()
     }
 
     abstract fun initialize()

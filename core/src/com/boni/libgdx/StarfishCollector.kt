@@ -48,7 +48,7 @@ class StarfishCollector : GameBeta() {
 
         if (BaseActor.count<Starfish>(mainStage) == 0) {
             win = true
-            BaseActor(0f, 0f, mainStage).apply {
+            BaseActor(0f, 0f, uiStage).apply {
                 loadTexture("you-win.png")
                 centerAtPosition(400f, 300f)
                 setOpacity(0f)
