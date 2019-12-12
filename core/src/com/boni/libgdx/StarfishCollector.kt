@@ -2,12 +2,12 @@ package com.boni.libgdx
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 
-class StarfishCollector: GameBeta() {
+class StarfishCollector : GameBeta() {
 
     private lateinit var turtle: Turtle
-    private lateinit var starfish: Starfish
     private lateinit var ocean: BaseActor
-    private lateinit var rock: Rock
+
+    private var win: Boolean = false
 
     override fun initialize() {
         ocean = BaseActor(0f, 0f, mainStage).apply {
@@ -15,24 +15,37 @@ class StarfishCollector: GameBeta() {
             setSize(800f, 600f)
         }
 
-        starfish = Starfish(380f, 380f, mainStage)
+        Starfish(400f, 400f, mainStage)
+        Starfish(500f, 100f, mainStage)
+        Starfish(100f, 450f, mainStage)
+        Starfish(200f, 250f, mainStage)
+        Rock(200f, 150f, mainStage)
+        Rock(100f, 300f, mainStage)
+        Rock(300f, 350f, mainStage)
+        Rock(450f, 200f, mainStage)
 
         turtle = Turtle(20f, 20f, mainStage)
-
-        rock = Rock(200f, 200f, mainStage)
     }
 
     override fun update(dt: Float) {
-        turtle.preventOverlap(rock)
 
-        if (turtle.overlaps(starfish) && !starfish.isCollected()) {
-            starfish.collect()
+        BaseActor.getList<Rock>(mainStage).forEach { turtle.preventOverlap(it) }
 
-            Whirlpool(0f, 0f, mainStage).apply {
-                centerAtActor(starfish)
-                setOpacity(0.25f)
+        BaseActor.getList<Starfish>(mainStage).forEach {
+            val starfish = it as Starfish
+
+            if (turtle.overlaps(starfish) && !starfish.isCollected()) {
+                starfish.collect()
+
+                Whirlpool(0f, 0f, mainStage).apply {
+                    centerAtActor(starfish)
+                    setOpacity(0.25f)
+                }
             }
+        }
 
+        if (BaseActor.count<Starfish>(mainStage) == 0) {
+            win = true
             BaseActor(0f, 0f, mainStage).apply {
                 loadTexture("you-win.png")
                 centerAtPosition(400f, 300f)

@@ -300,6 +300,24 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Actor() {
         // reset acceleration
         accelerationVec.set(0f, 0f)
     }
+
+    companion object {
+        inline fun <reified T: Any> getList(stage: Stage): List<BaseActor> {
+            val list = arrayListOf<BaseActor>()
+
+            stage.actors.forEach {
+                if (it is T) {
+                    list.add(it as BaseActor)
+                }
+            }
+
+            return list
+        }
+
+        inline fun <reified T: Any> count(stage: Stage): Int {
+            return getList<T>(stage).count()
+        }
+    }
 }
 
 
