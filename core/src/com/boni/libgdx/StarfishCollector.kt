@@ -2,6 +2,7 @@ package com.boni.libgdx
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 
+@Deprecated("Not used anymore. You instead should use StarfishGame")
 class StarfishCollector : GameBeta() {
 
     private lateinit var turtle: Turtle
