@@ -2,7 +2,7 @@ package com.boni.libgdx
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 
-class StarfishCollector : GameBeta() {
+class LevelScreen: BaseScreen() {
 
     private lateinit var turtle: Turtle
     private lateinit var ocean: BaseActor

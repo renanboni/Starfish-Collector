@@ -1,33 +1,56 @@
 package com.boni.libgdx
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.scenes.scene2d.Stage
 
-class BaseScreen: Screen {
-    override fun hide() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+abstract class BaseScreen: Screen {
 
-    override fun show() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    protected var mainStage: Stage = Stage()
+    protected var uiStage: Stage = Stage()
+
+    abstract fun initialize()
+    abstract fun update(dt: Float)
+
+    init {
+        initialize()
     }
 
     override fun render(delta: Float) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        uiStage.act(delta)
+        mainStage.act(delta)
+
+        update(delta)
+
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+
+        mainStage.draw()
+        uiStage.draw()
     }
 
     override fun pause() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun resume() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun resize(width: Int, height: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun dispose() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    }
+
+    override fun hide() {
+
+    }
+
+    override fun show() {
+
     }
 }
