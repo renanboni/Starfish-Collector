@@ -59,4 +59,15 @@ class MenuScreen : BaseScreen() {
             BaseGame.setActiveScreen(LevelScreen())
         }
     }
+
+    override fun keyDown(keycode: Int): Boolean {
+        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            BaseGame.setActiveScreen(LevelScreen())
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit()
+        }
+
+        return false
+    }
 }
