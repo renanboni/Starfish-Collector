@@ -1,11 +1,21 @@
 package com.boni.libgdx
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 
 class LevelScreen: BaseScreen() {
 
     private lateinit var turtle: Turtle
     private lateinit var ocean: BaseActor
+
+    private lateinit var starfishLabel: Label
 
     private var win: Boolean = false
 
@@ -27,6 +37,37 @@ class LevelScreen: BaseScreen() {
         Rock(450f, 200f, mainStage)
 
         turtle = Turtle(20f, 20f, mainStage)
+
+        starfishLabel = Label("Starfish left:", BaseGame.labelStyle).also {
+            it.color = Color.CYAN
+            it.setPosition(20f, 520f)
+        }
+        uiStage.addActor(starfishLabel)
+
+        setupRestartButton()
+    }
+
+    private fun setupRestartButton() {
+        val buttonStyle = Button.ButtonStyle()
+
+        val buttonTexture = Texture(Gdx.files.internal("undo.png"))
+        val buttonRegion = TextureRegion(buttonTexture)
+
+        buttonStyle.up = TextureRegionDrawable(buttonRegion)
+
+        val restartButton = Button(buttonStyle).also {
+            it.color = Color.CYAN
+            it.setPosition(720f, 520f)
+        }
+
+        uiStage.addActor(restartButton)
+
+        restartButton.addListener {
+            if (!(it is InputEvent) || it.type == InputEvent.Type.touchDown) {
+                BaseGame.setActiveScreen(LevelScreen())
+            }
+            false
+        }
     }
 
     override fun update(dt: Float) {
@@ -55,5 +96,7 @@ class LevelScreen: BaseScreen() {
                 addAction(Actions.after(Actions.fadeIn(1f)))
             }
         }
+
+        starfishLabel.setText("Starfish Left: ${BaseActor.count<Starfish>(mainStage)}")
     }
 }
