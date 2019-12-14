@@ -17,6 +17,8 @@ class LevelScreen: BaseScreen() {
 
     private lateinit var starfishLabel: Label
 
+    private lateinit var restartButton: Button
+
     private var win: Boolean = false
 
     override fun initialize() {
@@ -40,11 +42,14 @@ class LevelScreen: BaseScreen() {
 
         starfishLabel = Label("Starfish left:", BaseGame.labelStyle).also {
             it.color = Color.CYAN
-            it.setPosition(20f, 520f)
         }
-        uiStage.addActor(starfishLabel)
 
         setupRestartButton()
+
+        uiTable.pad(10f)
+        uiTable.add(starfishLabel).top()
+        uiTable.add().expandX().expandY()
+        uiTable.add(restartButton).top()
     }
 
     private fun setupRestartButton() {
@@ -55,12 +60,9 @@ class LevelScreen: BaseScreen() {
 
         buttonStyle.up = TextureRegionDrawable(buttonRegion)
 
-        val restartButton = Button(buttonStyle).also {
+        restartButton = Button(buttonStyle).also {
             it.color = Color.CYAN
-            it.setPosition(720f, 520f)
         }
-
-        uiStage.addActor(restartButton)
 
         restartButton.addListener {
             if (!(it is InputEvent) || it.type == InputEvent.Type.touchDown) {

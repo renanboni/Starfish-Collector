@@ -7,24 +7,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 
 class MenuScreen : BaseScreen() {
 
+    private lateinit var startButton: TextButton
+    private lateinit var quitButton: TextButton
+    private lateinit var title: BaseActor
+
     override fun initialize() {
         setupActors()
         setupStartButton()
         setupQuitButton()
-    }
 
-    private fun setupQuitButton() {
-        val quitButton = TextButton("Quit", BaseGame.textButtonStyle).also {
-            it.setPosition(500f, 150f)
-        }
-        uiStage.addActor(quitButton)
-
-        quitButton.addListener {
-            if (!(it is InputEvent) || it.type == InputEvent.Type.touchDown) {
-                Gdx.app.exit()
-            }
-            false
-        }
+        uiTable.add(title).colspan(2)
+        uiTable.row()
+        uiTable.add(startButton)
+        uiTable.add(quitButton)
     }
 
     private fun setupActors() {
@@ -33,22 +28,31 @@ class MenuScreen : BaseScreen() {
             setSize(800f, 600f)
         }
 
-        BaseActor(0f, 0f, mainStage).apply {
+        title = BaseActor(0f, 0f, mainStage).apply {
             loadTexture("starfish-collector.png")
-            centerAtPosition(400f, 300f)
             moveBy(0f, 100f)
         }
     }
 
     private fun setupStartButton() {
-        val startButton = TextButton("Start", BaseGame.textButtonStyle).also {
-            it.setPosition(150f, 150f)
-        }
+        startButton = TextButton("Start", BaseGame.textButtonStyle)
         uiStage.addActor(startButton)
 
         startButton.addListener {
             if (!(it is InputEvent) || it.type == InputEvent.Type.touchDown) {
                 BaseGame.setActiveScreen(LevelScreen())
+            }
+            false
+        }
+    }
+
+    private fun setupQuitButton() {
+        quitButton = TextButton("Quit", BaseGame.textButtonStyle)
+        uiStage.addActor(quitButton)
+
+        quitButton.addListener {
+            if (!(it is InputEvent) || it.type == InputEvent.Type.touchDown) {
+                Gdx.app.exit()
             }
             false
         }

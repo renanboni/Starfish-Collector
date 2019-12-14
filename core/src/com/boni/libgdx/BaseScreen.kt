@@ -6,17 +6,22 @@ import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Table
 
 abstract class BaseScreen: Screen, InputProcessor {
 
     protected var mainStage: Stage = Stage()
     protected var uiStage: Stage = Stage()
+    protected var uiTable: Table = Table()
 
     abstract fun initialize()
     abstract fun update(dt: Float)
 
     init {
         initialize()
+
+        uiTable.setFillParent(true)
+        uiStage.addActor(uiTable)
     }
 
     override fun render(delta: Float) {
