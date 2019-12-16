@@ -128,18 +128,14 @@ class LevelScreen: BaseScreen() {
             val nearby = turtle.isWithinDistance(4f, sign)
 
             if (nearby && !sign.isViewing()) {
-                dialogBox.apply {
-                    it.setText(sign.getText())
-                    it.isVisible = true
-                }
+                dialogBox.setText(sign.getText())
+                dialogBox.isVisible = true
                 sign.setViewing(true)
             }
 
             if (sign.isViewing() && !nearby) {
-                dialogBox.apply {
-                    it.setText("")
-                    it.isVisible = false
-                }
+                dialogBox.setText("")
+                dialogBox.isVisible = false
                 sign.setViewing(false)
             }
         }

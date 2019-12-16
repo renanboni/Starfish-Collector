@@ -13,13 +13,12 @@ class DialogBox(x: Float, y: Float, stage: Stage) : BaseActor(x, y, stage) {
     init {
         loadTexture("dialog-translucent.png")
 
-        dialogLabel = Label(" ", BaseGame.labelStyle).also {
-            it.setWrap(true)
-            it.setAlignment(Align.topLeft)
-            it.setPosition(padding, padding)
-            setDialogSize(width, height)
-            this.addActor(dialogLabel)
-        }
+        dialogLabel = Label(" ", BaseGame.labelStyle)
+        dialogLabel.setWrap(true)
+        dialogLabel.setAlignment(Align.topLeft)
+        dialogLabel.setPosition(padding, padding)
+        this.setDialogSize(width, height)
+        this.addActor(dialogLabel)
     }
 
     fun setDialogSize(width: Float, height: Float) {
