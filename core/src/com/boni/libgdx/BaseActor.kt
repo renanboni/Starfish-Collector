@@ -333,6 +333,22 @@ open class BaseActor(x: Float, y: Float, stage: Stage) : Group() {
         }
     }
 
+    fun isWithinDistance(distance: Float, other: BaseActor): Boolean {
+        val scaleX = (width + 2 * distance) / width
+        val scaleY = (height + 2 * distance) / height
+
+        val poly1 = getBoundaryPolygon()
+        poly1.setScale(scaleX, scaleY)
+
+        val poly2 = other.getBoundaryPolygon()
+
+        if (!poly1.boundingRectangle.overlaps(poly2.boundingRectangle)) {
+            return false
+        }
+
+        return Intersector.overlapConvexPolygons(poly1, poly2)
+    }
+
     companion object {
         lateinit var worldBounds: Rectangle
 
