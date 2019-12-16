@@ -19,6 +19,8 @@ class LevelScreen: BaseScreen() {
 
     private lateinit var restartButton: Button
 
+    private lateinit var dialogBox: DialogBox
+
     private var win: Boolean = false
 
     override fun initialize() {
@@ -50,6 +52,26 @@ class LevelScreen: BaseScreen() {
         uiTable.add(starfishLabel).top()
         uiTable.add().expandX().expandY()
         uiTable.add(restartButton).top()
+
+        Sign(20f, 400f, mainStage).apply {
+            setText("West Starfish Bay")
+        }
+
+        Sign(600f, 300f, mainStage).apply {
+            setText("East Starfish Bay")
+        }
+
+        dialogBox = DialogBox(0f, 0f, uiStage).also {
+            it.setBackgroundColor(Color.CYAN)
+            it.setFontColor(Color.BROWN)
+            it.setDialogSize(600f, 100f)
+            it.setFontScale(0.80f)
+            it.alignCenter()
+            it.isVisible = false
+        }
+
+        uiTable.row()
+        uiTable.add(dialogBox).colspan(3)
     }
 
     private fun setupRestartButton() {
@@ -96,6 +118,29 @@ class LevelScreen: BaseScreen() {
                 setOpacity(0f)
                 addAction(Actions.delay(1f))
                 addAction(Actions.after(Actions.fadeIn(1f)))
+            }
+        }
+
+        BaseActor.getList<Sign>(mainStage).forEach {
+            val sign = it as Sign
+
+            turtle.preventOverlap(sign)
+            val nearby = turtle.isWithinDistance(4f, sign)
+
+            if (nearby && !sign.isViewing()) {
+                dialogBox.apply {
+                    it.setText(sign.getText())
+                    it.isVisible = true
+                }
+                sign.setViewing(true)
+            }
+
+            if (sign.isViewing() && !nearby) {
+                dialogBox.apply {
+                    it.setText("")
+                    it.isVisible = false
+                }
+                sign.setViewing(false)
             }
         }
 
