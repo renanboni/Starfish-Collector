@@ -15,7 +15,10 @@ class MenuScreen : BaseScreen() {
         setupActors()
         setupStartButton()
         setupQuitButton()
+        setupLayout()
+    }
 
+    private fun setupLayout() {
         uiTable.add(title).colspan(2)
         uiTable.row()
         uiTable.add(startButton)
