@@ -26,12 +26,12 @@ class MenuScreen : BaseScreen() {
     }
 
     private fun setupActors() {
-        BaseActor(0f, 0f, mainStage).apply {
+        BaseActor(stage = mainStage).apply {
             loadTexture("water.jpg")
             setSize(800f, 600f)
         }
 
-        title = BaseActor(0f, 0f, mainStage).apply {
+        title = BaseActor(stage = mainStage).apply {
             loadTexture("starfish-collector.png")
             moveBy(0f, 100f)
         }

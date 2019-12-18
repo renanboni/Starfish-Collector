@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
  * This class should be used in place of ActorBeta
  * It is considered as its improved version
  */
-open class BaseActor(x: Float, y: Float, stage: Stage) : Group() {
+open class BaseActor(x: Float = 0F, y: Float = 0F, stage: Stage) : Group() {
 
     // Animations
     private var animation: Animation<TextureRegion>? = null
