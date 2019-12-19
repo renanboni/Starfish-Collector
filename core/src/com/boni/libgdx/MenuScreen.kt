@@ -42,8 +42,8 @@ class MenuScreen : BaseScreen() {
         uiStage.addActor(startButton)
 
         startButton.addListener {
-            if (!(it is InputEvent) || it.type == InputEvent.Type.touchDown) {
-                BaseGame.setActiveScreen(LevelScreen())
+            if (it !is InputEvent || it.type == InputEvent.Type.touchDown) {
+                BaseGame.setActiveScreen(StoryScreen())
             }
             false
         }
@@ -54,7 +54,7 @@ class MenuScreen : BaseScreen() {
         uiStage.addActor(quitButton)
 
         quitButton.addListener {
-            if (!(it is InputEvent) || it.type == InputEvent.Type.touchDown) {
+            if (it !is InputEvent || it.type == InputEvent.Type.touchDown) {
                 Gdx.app.exit()
             }
             false
@@ -69,7 +69,7 @@ class MenuScreen : BaseScreen() {
 
     override fun keyDown(keycode: Int): Boolean {
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            BaseGame.setActiveScreen(LevelScreen())
+            BaseGame.setActiveScreen(StoryScreen())
         }
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit()
