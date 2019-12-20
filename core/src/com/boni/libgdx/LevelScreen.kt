@@ -54,12 +54,11 @@ class LevelScreen : BaseScreen() {
         uiTable.add().expandX().expandY()
         uiTable.add(restartButton).top()
 
+        uiTable.add(muteButton).top()
+
         addSign()
         addDialogBox()
         setSounds()
-
-        uiTable.add(muteButton).top()
-
     }
 
     private fun addOcean() {
@@ -124,7 +123,6 @@ class LevelScreen : BaseScreen() {
     }
 
     private fun setupRestartButton() {
-        // Restart Button
         val buttonStyle = Button.ButtonStyle()
 
         val buttonTexture = Texture(Gdx.files.internal("undo.png"))
