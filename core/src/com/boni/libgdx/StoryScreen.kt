@@ -49,13 +49,13 @@ class StoryScreen : BaseScreen() {
 
         scene.addSegment(SceneSegment(dialogBox, SceneActions.setText("I want to be the very best . . . Starfish Collector!")))
 
-        scene.addSegment(SceneSegment(continueKey,  Actions.show()))
+        scene.addSegment(SceneSegment(continueKey, Actions.show()))
         scene.addSegment(SceneSegment(background, SceneActions.pause()))
         scene.addSegment(SceneSegment(continueKey, Actions.hide()))
 
         scene.addSegment(SceneSegment(dialogBox, SceneActions.setText("I've got to collect them all!")))
 
-        scene.addSegment(SceneSegment(continueKey,  Actions.show()))
+        scene.addSegment(SceneSegment(continueKey, Actions.show()))
         scene.addSegment(SceneSegment(background, SceneActions.pause()))
         scene.addSegment(SceneSegment(continueKey, Actions.hide()))
 

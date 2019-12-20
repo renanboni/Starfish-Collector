@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 
-class LevelScreen: BaseScreen() {
+class LevelScreen : BaseScreen() {
 
     private lateinit var turtle: Turtle
     private lateinit var ocean: BaseActor
