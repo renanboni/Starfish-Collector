@@ -5,6 +5,8 @@ import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.scenes.scene2d.Event
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 
@@ -67,6 +69,10 @@ abstract class BaseScreen: Screen, InputProcessor {
             it.addProcessor(uiStage)
             it.addProcessor(mainStage)
         }
+    }
+
+    fun isTouchEvent(e: Event): Boolean {
+        return (e is InputEvent) && e.type == InputEvent.Type.touchDown
     }
 
     override fun keyDown(keycode: Int): Boolean {
