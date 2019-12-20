@@ -59,7 +59,7 @@ class StoryScreen : BaseScreen() {
         scene.addSegment(SceneSegment(background, SceneActions.pause()))
         scene.addSegment(SceneSegment(continueKey, Actions.hide()))
 
-        scene.addSegment(SceneSegment(background, Actions.hide()))
+        scene.addSegment(SceneSegment(dialogBox, Actions.hide()))
         scene.addSegment(SceneSegment(turtle, SceneActions.moveToOutsideRight(1f)))
         scene.addSegment(SceneSegment(dialogBox, Actions.fadeOut(1f)))
 
